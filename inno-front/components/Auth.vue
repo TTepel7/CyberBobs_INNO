@@ -3,12 +3,14 @@
     <div class="modal">
       <div class="header">
         <h1>{{ title }}</h1>
+
       </div>
       <div class="content">
+        <p v-if='errorText' class="error">{{errorText}}</p>
         <input class="inputField" v-model="email" placeholder='Введите почту' type="text" />
         <input class="inputField" v-model="password" placeholder='Введите пароль' type="password"/>
         <input v-if='isRegistration' class="inputField" v-model="repeatPassword" placeholder='Повторите пароль' type="password"/>
-        <p v-if='errorText' class="error">{{errorText}}</p>
+
         <div v-if="!isRegistration" class="field" @click="isRememberMe = !isRememberMe">
           <input type="checkbox" v-model="isRememberMe">
           Запомнить меня
@@ -19,7 +21,7 @@
         <div class="field">
           <a class="registrationSwitch" @click="isRegistration = !isRegistration">{{ registrationSwitch }}</a>
         </div>
-        <button class="enterButton" @click="signUp">Войти</button>
+        <button class="enterButton" @click="isRegistration?signUp():signIn()">{{ buttonText }}</button>
       </div>
     </div>
   </button>
@@ -52,8 +54,13 @@ export default {
       alert('Ты не вошёл!');
     },
     signUp(){
-      if(repeatPassword)
-      this.errorText = "Неверный логин или пароль";
+      if(this.repeatPassword !== this.password){
+        this.errorText = "Пароли не совпадают";
+      }
+      else if(!this.validatePassword(this.password)){
+        this.errorText = "Пароль должен быть не менее 8 символов и должен иметь 1 большую, 1 маленькую букву, 1 цифру и 1 спец. символ.";
+      }
+
       alert('Ты не вошёл!');
     },
     validateEmail(email){
@@ -62,6 +69,7 @@ export default {
     },
     validatePassword(password){
       const pattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
+      console.log(pattern.test(password))
       return pattern.test(password);
     },
   },
@@ -82,9 +90,11 @@ export default {
 <style lang="scss" scoped>
 
 .error{
+  max-width: 180px;
   font-size: 12px;
   line-height: 18px;
   color: #ff0000;
+
 }
 
 .header{
@@ -143,6 +153,7 @@ export default {
   color: #ffffff;
   background-color: #000000;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .field{
