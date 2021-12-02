@@ -6,9 +6,8 @@
       </div>
       <div class="content">
         <input class="inputField" v-model="email" placeholder='Введите почту' type="text" />
-        <p v-if='emailError' class="emailError">{{emailError}}</p>
         <input class="inputField" v-model="password" placeholder='Введите пароль' type="password"/>
-        <p v-if='passwordError' class="passwordError">{{passwordError}}</p>
+        <p v-if='errorText' class="error">{{errorText}}</p>
         <div class="field" @click="isRememberMe = !isRememberMe">
           <input type="checkbox" v-model="isRememberMe">
           Запомнить меня
@@ -29,13 +28,13 @@ export default {
       email: "",
       password: "",
       isRememberMe: false,
-      emailError: "",
-      passwordError: "",
+      errorText: "",
     }
   },
   methods:{
     signUp(){
-      alert('Ты вошёл!')
+      this.errorText = "Неверный логин или пароль";
+      alert('Ты не вошёл!');
     },
     validateEmail(email){
       const pattern = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
@@ -51,6 +50,11 @@ export default {
 
 <style lang="scss" scoped>
 
+.error{
+  font-size: 12px;
+  line-height: 18px;
+  color: #ff0000;
+}
 
 .header{
   display: flex;
