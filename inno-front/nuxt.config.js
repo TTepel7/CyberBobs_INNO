@@ -44,8 +44,6 @@ export default {
     '@nuxtjs/axios',
   ],
 
-  buildDir: 'public_html',
-
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
 

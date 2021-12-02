@@ -22,7 +22,12 @@
 </template>
 
 <script>
+import { auth } from '~/api/api.js';
 export default {
+  async fetch(){
+    const data = await auth();
+    console.log(data);
+  },
   data(){
     return {
       email: "",
