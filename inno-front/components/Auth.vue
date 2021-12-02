@@ -2,18 +2,22 @@
   <button class="fog">
     <div class="modal">
       <div class="header">
-        <h1>Вход в систему</h1>
+        <h1>{{ title }}</h1>
       </div>
       <div class="content">
         <input class="inputField" v-model="email" placeholder='Введите почту' type="text" />
         <input class="inputField" v-model="password" placeholder='Введите пароль' type="password"/>
+        <input v-if='isRegistration' class="inputField" v-model="repeatPassword" placeholder='Повторите пароль' type="password"/>
         <p v-if='errorText' class="error">{{errorText}}</p>
-        <div class="field" @click="isRememberMe = !isRememberMe">
+        <div v-if="!isRegistration" class="field" @click="isRememberMe = !isRememberMe">
           <input type="checkbox" v-model="isRememberMe">
           Запомнить меня
         </div>
+        <div v-if='!isRegistration' class="field">
+          <a class="rememberPassword" @click="rememberPassword" >Забыли пароль?</a>
+        </div>
         <div class="field">
-          <a class="rememberPassword" href="" @click="alert('Сам вспомни')">Вспомнить пароль</a>
+          <a class="registrationSwitch" @click="isRegistration = !isRegistration">{{ registrationSwitch }}</a>
         </div>
         <button class="enterButton" @click="signUp">Войти</button>
       </div>
@@ -32,12 +36,23 @@ export default {
     return {
       email: "",
       password: "",
+      repeatPassword: "",
       isRememberMe: false,
       errorText: "",
+
+      isRegistration: false,
     }
   },
   methods:{
+    rememberPassword(){
+      console.log("rememberPass");
+    },
+    signIn(){
+      this.errorText = "Неверный логин или пароль";
+      alert('Ты не вошёл!');
+    },
     signUp(){
+      if(repeatPassword)
       this.errorText = "Неверный логин или пароль";
       alert('Ты не вошёл!');
     },
@@ -48,6 +63,17 @@ export default {
     validatePassword(password){
       const pattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
       return pattern.test(password);
+    },
+  },
+  computed:{
+    buttonText(){
+      return this.isRegistration?'Зарегистрироваться':'Войти';
+    },
+    registrationSwitch(){
+      return this.isRegistration?'Или нужно войти?':'Или нужно зарегистрироваться?';
+    },
+    title(){
+      return this.isRegistration?'Регистрация':'Вход в систему';
     }
   }
 }
@@ -67,7 +93,6 @@ export default {
 }
 .modal {
   position: absolute;
-  width: 300px;
   background-color: #ffffff;
   left: 50%;
   top: 50%;
@@ -126,5 +151,13 @@ export default {
   line-height: 24px;
   align-items: center;
   margin-bottom: 12px;
+}
+
+.rememberPassword{
+  cursor: pointer;
+}
+
+.registrationSwitch{
+  cursor: pointer;
 }
 </style>

@@ -1,14 +1,14 @@
 <template>
   <div>
-    <Login />
+    <Auth />
   </div>
 </template>
 
 <script>
-import Login from "~/components/Login.vue";
+import Auth from "~/components/Auth.vue";
 export default {
   components:{
-    Login,
+    Auth,
   }
 }
 </script>
