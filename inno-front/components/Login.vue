@@ -1,14 +1,23 @@
 <template>
   <button class="fog">
-    <div class="content">
-      <h1>Вход в систему</h1>
-      <input class="inputField" v-model="email" placeholder='Введите почту' type="text" />
-      <input class="inputField" v-model="password" placeholder='Введите пароль' type="text" />
-      <div class="field">
-        <input type="checkbox" v-model="checkedNames">
-        Запомнить меня
+    <div class="modal">
+      <div class="header">
+        <h1>Вход в систему</h1>
       </div>
-      <button class="enterButton">Войти</button>
+      <div class="content">
+        <input class="inputField" v-model="email" placeholder='Введите почту' type="text" />
+        <p v-if='emailError' class="emailError">{{emailError}}</p>
+        <input class="inputField" v-model="password" placeholder='Введите пароль' type="password"/>
+        <p v-if='passwordError' class="passwordError">{{passwordError}}</p>
+        <div class="field" @click="isRememberMe = !isRememberMe">
+          <input type="checkbox" v-model="isRememberMe">
+          Запомнить меня
+        </div>
+        <div class="field">
+          <a class="rememberPassword" href="" @click="alert('Сам вспомни')">Вспомнить пароль</a>
+        </div>
+        <button class="enterButton" @click="signUp">Войти</button>
+      </div>
     </div>
   </button>
 </template>
@@ -19,14 +28,35 @@ export default {
     return {
       email: "",
       password: "",
-      isRememberMe: false
+      isRememberMe: false,
+      emailError: "",
+      passwordError: "",
+    }
+  },
+  methods:{
+    signUp(){
+      alert('Ты вошёл!')
+    },
+    validateEmail(email){
+      const pattern = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
+      return pattern.test(email);
+    },
+    validatePassword(password){
+      const pattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
+      return pattern.test(password);
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.content {
+
+
+.header{
+  display: flex;
+  align-items: center;
+}
+.modal {
   position: absolute;
   width: 300px;
   background-color: #ffffff;
@@ -38,6 +68,13 @@ export default {
   padding: 28px 14px;
   transform: translate(-50%, -50%);
   border-radius: 8px;
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  padding: 0 24px;
+  align-items: flex-start;
 }
 
 .fog {
@@ -61,6 +98,7 @@ export default {
   border: 2px solid #101010;
   border-radius: 8px;
 }
+
 .enterButton{
   display: flex;
   align-items: center;

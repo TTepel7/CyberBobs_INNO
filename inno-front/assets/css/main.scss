@@ -7,3 +7,12 @@ input {
   border: 0;
   background-color: transparent;
 }
+
+a {
+  text-decoration: none;
+  color: #000000;
+
+  &:active{
+    color: #000000;
+  }
+}
