@@ -11,7 +11,11 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "core-js": "^3.15.1",
-    "nuxt": "^2.15.7"
+    "nuxt": "^2.15.7",
+    "webpack": "^4.46.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "sass": "^1.44.0",
+    "sass-loader": "10.1.1"
+  }
 }
