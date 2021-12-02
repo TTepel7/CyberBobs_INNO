@@ -7,6 +7,8 @@
       </div>
       <div class="content">
         <p v-if='errorText' class="error">{{errorText}}</p>
+        <input v-if='isRegistration' class="inputField" v-model="firstName" placeholder='Введите имя' type="text" />
+        <input v-if='isRegistration' class="inputField" v-model="lastName" placeholder='Введите фамилию' type="text"/>
         <input class="inputField" v-model="email" placeholder='Введите почту' type="text" />
         <input class="inputField" v-model="password" placeholder='Введите пароль' type="password"/>
         <input v-if='isRegistration' class="inputField" v-model="repeatPassword" placeholder='Повторите пароль' type="password"/>
@@ -28,12 +30,8 @@
 </template>
 
 <script>
-import { auth } from '~/api/api.js';
+import { signUp, signIn, restore } from '~/api/api.js';
 export default {
-  async fetch(){
-    const data = await auth();
-    console.log(data);
-  },
   data(){
     return {
       email: "",
@@ -41,27 +39,66 @@ export default {
       repeatPassword: "",
       isRememberMe: false,
       errorText: "",
+      firstName: "",
+      lastName: '',
 
       isRegistration: false,
     }
   },
   methods:{
     rememberPassword(){
-      console.log("rememberPass");
+      if(this.email === "" || !this.validateEmail){
+        this.errorText = "Введите почту для восстановления"
+      }else{
+        alert('Вам на почту отправлено письмо для восстановления пароля');
+        restore(this.email);
+      }
+
     },
     signIn(){
-      this.errorText = "Неверный логин или пароль";
-      alert('Ты не вошёл!');
+      if(this.email === ""){
+        this.errorText = "Введите почту";
+      }
+      else if(this.password === ""){
+        this.errorText = "Введите пароль";
+      }
+      else{
+        signIn(this.email, this.password).then((response) => {
+          if(this.isRememberMe) localStorage.setItem('token', response.data.access_token);
+          else document.cookie = `accessToken=${response.data.access_token}`
+          this.$router.back()
+        }).catch((error ) => {
+          const response = error.response.data;
+          if(response['email'] === "The email must be a valid email address."){
+            this.errorText = 'Введите корректную почту'
+          }else if(response['password'] === "The email must be a valid email address."){
+            this.errorText = 'Введите корректный пароль'
+          }else if(response['error'] === "Wrong Login or Password."){
+            this.errorText = 'Неверный логин или пароль'
+          }
+        });
+      }
     },
-    signUp(){
+    signUp() {
       if(this.repeatPassword !== this.password){
         this.errorText = "Пароли не совпадают";
       }
       else if(!this.validatePassword(this.password)){
         this.errorText = "Пароль должен быть не менее 8 символов и должен иметь 1 большую, 1 маленькую букву, 1 цифру и 1 спец. символ.";
+      }else{
+        signUp(this.firstName, this.lastName, this.email, this.password, this.repeatPassword).then((response) => {
+          this.$router.back()
+        }).catch((error) => {
+          if(error['email'] === "The email must be a valid email address."){
+            this.errorText = 'Введите корректную почту'
+          }else if(error['password'] === "The email must be a valid email address."){
+            this.errorText = 'Введите корректный пароль'
+          }else if(error['error'] === "Wrong Login or Password."){
+            this.errorText = 'Неверный логин или пароль'
+          }
+        });
       }
 
-      alert('Ты не вошёл!');
     },
     validateEmail(email){
       const pattern = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
@@ -69,7 +106,6 @@ export default {
     },
     validatePassword(password){
       const pattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
-      console.log(pattern.test(password))
       return pattern.test(password);
     },
   },
