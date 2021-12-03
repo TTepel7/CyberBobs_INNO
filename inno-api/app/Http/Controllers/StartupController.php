@@ -4,18 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\Startup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StartupController extends Controller
 {
     /**
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @return array
      */
     public function index(Request $request)
     {
         $query=$request->get('query','');
-        $startups=Startup::search($query)->get();
-        return $startups;
+        $page=$request->get('page',1);
+        $direction=$request->get('direction_id',false);
+
+        if($direction) {
+            $startups = Startup::search($query)->where('directions.id',$direction)->paginate(10, 'page', $page);
+        }else{
+            $startups = Startup::search($query)->paginate(10, 'page', $page);
+        }
+        return [
+           'items'=> $startups->items(),
+            'current_page'=>$page,
+            'total_page'=>$startups->lastPage(),
+            'count'=>DB::table('startups')->count()
+        ];
     }
 
     /**
