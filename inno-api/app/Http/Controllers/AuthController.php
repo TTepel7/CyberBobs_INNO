@@ -61,8 +61,13 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|confirmed|min:8',
         ]);
-
-        if ($validator->fails()) {
+        if(env('EMAIL_CHECK',false)){
+            $TIM=stripos($request->get('email',''),"@ftim.ru");
+            if ($TIM==false){
+                return response()->json(['Error'=>'Bad email'], 400);
+            }
+        }
+        if ($validator->fails() ) {
             return response()->json($validator->errors()->toJson(), 400);
         }
         $token = Str::random(100);
