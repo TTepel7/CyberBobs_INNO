@@ -8,16 +8,20 @@
 
     <h1 class="title">[Витрина решений]</h1>
     <p class="description">{{ `${count} инновационных решений под любые ваши цели` }}</p>
+    <div class="filters">
+      <button v-for="direction in directionList" :key="direction.id" :class="filterClasses(direction.id)" @click="directionClick(direction.id)">
+        {{ direction.alias }}
+      </button>
+    </div>
     <div class="startupCards">
       <StartupCard v-for="item in startupList" :key='item.id' :item='item'/>
     </div>
     <FloatingPanel :active="showPanel" />
-    <MasterFilterModal />
   </div>
 </template>
 
 <script>
-import { logout, getUserProfile, startups } from '~/api/api';
+import { logout, getUserProfile, startups, directions } from '~/api/api';
 import SearchField from '~/components/SearchField/SearchField.vue';
 import StartupCard from '~/components/StartupCard.vue';
 import FloatingPanel from '~/components/FloatingPanel.vue';
@@ -37,9 +41,12 @@ export default {
       userData: {},
       searchText: '',
       startupList: [],
+      directionList: [],
       count: 0,
+      endPage: 0,
       timeout: false,
       showPanel: false,
+      currentFilter: '',
       page: 0,
     }
   },
@@ -51,10 +58,14 @@ export default {
   watch:{
     page(){
       this.getStartups()
+    },
+    currentFilter(){
+      this.getStartups()
     }
   },
   async fetch(){
     await this.getStartups()
+    await this.getDirections()
   },
   middleware: ['auth'],
   mounted () {
@@ -78,11 +89,32 @@ export default {
     async getStartups(){
       if(!this.timeout) {
         this.timeout = true;
-        await startups(this.searchText, this.page + 1).then((response) => {
+        await startups(this.searchText, this.page + 1, this.currentFilter).then((response) => {
           this.startupList = this.startupList.concat(response.data.items);
           this.count = response.data.count;
+          this.endPage = response.data.total_page;
           setTimeout(()=>{ this.timeout = false}, 1000)
         })
+      }
+    },
+    async getDirections(){
+      directions().then((response) => {
+        this.directionList = response.data
+      });
+    },
+    directionClick(id){
+      this.page = 0;
+      this.startupList = [];
+      if(id === this.currentFilter){
+        this.currentFilter = '';
+      }else{
+        this.currentFilter = id;
+      }
+    },
+    filterClasses(id){
+      return {
+        filter: id !== this.currentFilter,
+        activeFilter: id === this.currentFilter,
       }
     },
     scrollY (event) {
@@ -92,7 +124,7 @@ export default {
         document.body.clientHeight, document.documentElement.clientHeight
 
       )
-      if (window.scrollY + window.innerHeight >= scrollHeight) {
+      if (window.scrollY + window.innerHeight >= scrollHeight && this.page+1 <= this.endPage) {
         this.page++
       }
       this.showPanel = window.scrollY > 3000;
@@ -123,6 +155,12 @@ export default {
     background-color: #ffffff;
   }
 
+  .filters{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 32px;
+  }
+
   .searchField{
     margin-top: 156px;
     margin-bottom: 36px;
@@ -150,6 +188,41 @@ export default {
     border-radius: 8px;
     margin-right: 24px;
     color: #ffffff;
+  }
+
+  .filter{
+    padding: 4px 6px;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 20px;
+    color: #25222C;
+    box-sizing: border-box;
+    border-radius: 43px;
+    margin-right: 6px;
+    margin-bottom: 4px;
+    cursor: pointer;
+  }
+
+  .activeFilter {
+    padding: 4px 6px;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 20px;
+    color: #ffffff;
+    background-color: #009A96;
+    box-sizing: border-box;
+    border-radius: 43px;
+    margin-right: 6px;
+    margin-bottom: 4px;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 1600px) {
+  .indexPage{
+    .startupCards{
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 }
 
