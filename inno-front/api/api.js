@@ -12,12 +12,13 @@ function getCookie(name) {
 
 function getToken(){
   let accessToken = '';
-  if(getCookie('accessToken') !== 'undefined'){
-    accessToken = getCookie('accessToken');
-  }
   if(localStorage.getItem('token')){
     accessToken = localStorage.getItem('token');
   }
+  if(getCookie('accessToken') !== 'undefined'){
+    accessToken = getCookie('accessToken');
+  }
+
   return accessToken;
 }
 

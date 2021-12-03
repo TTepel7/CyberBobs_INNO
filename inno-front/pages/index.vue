@@ -47,7 +47,7 @@ export default {
       endPage: 0,
       timeout: false,
       showPanel: false,
-      showModal: true,
+      showModal: false,
       currentFilter: null,
       page: 0,
     }
@@ -83,13 +83,16 @@ export default {
       let projectStage;
       let transport;
       let cert;
+      this.page = 0;
+      this.startupList = [];
+      this.searchText = '';
       result.forEach((item) => {
 
         if(item.name === 'directions'){
           this.currentFilter = item.id;
-        }else if(item.nane === 'certs'){
+        }else if(item.name === 'certs'){
           cert = item.id;
-        }else if(item.nane === 'transport'){
+        }else if(item.name === 'transport'){
           transport = item.id;
         }else{
           projectStage = item.id;

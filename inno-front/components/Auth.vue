@@ -109,8 +109,10 @@ export default {
       else if(!this.validatePassword(this.password)){
         this.errorText = "Пароль должен быть не менее 8 символов и должен иметь 1 большую, 1 маленькую букву, 1 цифру и 1 спец. символ.";
       }else{
+        this.isRegistration= false,
         signUp(this.firstName, this.lastName, this.email, this.password, this.repeatPassword).then((response) => {
-            this.$router.replace({ name: 'index'} )
+          this.$router.replace({ name: 'index'} )
+
         }).catch((error) => {
           if(error['email'] === "The email must be a valid email address."){
             this.errorText = 'Введите корректную почту'
