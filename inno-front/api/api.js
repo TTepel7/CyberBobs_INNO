@@ -12,12 +12,13 @@ function getCookie(name) {
 
 function getToken(){
   let accessToken = '';
-  if(getCookie('accessToken') !== 'undefined'){
-    accessToken = getCookie('accessToken');
-  }
   if(localStorage.getItem('token')){
     accessToken = localStorage.getItem('token');
   }
+  if(getCookie('accessToken') !== 'undefined'){
+    accessToken = getCookie('accessToken');
+  }
+
   return accessToken;
 }
 
@@ -56,13 +57,13 @@ export async function logout(){
   return await instance.post(`${URL}${auth}logout`);
 }
 
-export async function startups(query, page, direction_id){
+export async function startups(query, page, direction_id, project_stage_id, transport_type_id, cert_type_id){
   let accessToken = getToken();
   const instance = axios.create({
     baseURL: URL,
     headers: {'Authorization': `Bearer ${accessToken}`, "Access-Control-Allow-Origin": "*"}
   });
-  return await instance.post(`${URL}startups`, { query, page, direction_id } );
+  return await instance.post(`${URL}startups`, { query, page, direction_id,project_stage_id,transport_type_id,cert_type_id } );
 }
 
 export async function directions(){
@@ -73,4 +74,33 @@ export async function directions(){
   });
   return await instance.get(`${URL}directions`);
 }
+
+export async function certs(){
+  let accessToken = getToken();
+  const instance = axios.create({
+    baseURL: URL,
+    headers: {'Authorization': `Bearer ${accessToken}`, "Access-Control-Allow-Origin": "*"}
+  });
+  return await instance.get(`${URL}certs`);
+}
+
+export async function transport(){
+  let accessToken = getToken();
+  const instance = axios.create({
+    baseURL: URL,
+    headers: {'Authorization': `Bearer ${accessToken}`, "Access-Control-Allow-Origin": "*"}
+  });
+  return await instance.get(`${URL}transport`);
+}
+
+export async function project_stages(){
+  let accessToken = getToken();
+  const instance = axios.create({
+    baseURL: URL,
+    headers: {'Authorization': `Bearer ${accessToken}`, "Access-Control-Allow-Origin": "*"}
+  });
+  return await instance.get(`${URL}project_stages`);
+}
+
+
 

@@ -16,7 +16,8 @@
     <div class="startupCards">
       <StartupCard v-for="item in startupList" :key='item.id' :item='item'/>
     </div>
-    <FloatingPanel :active="showPanel" />
+    <FloatingPanel :active="showPanel" @showMaster="showModal = true" />
+    <MasterFilterModal v-if='showModal' @close="showModal = false" @search='masterFilterSearch'/>
   </div>
 </template>
 
@@ -26,7 +27,7 @@ import SearchField from '~/components/SearchField/SearchField.vue';
 import StartupCard from '~/components/StartupCard.vue';
 import FloatingPanel from '~/components/FloatingPanel.vue';
 import Header from '~/components/Header.vue';
-import MasterFilterModal from '~/components/MasterFilterModal.vue';
+import MasterFilterModal from '~/components/MasterFilterModal/MasterFilterModal.vue';
 
 export default {
   components: {
@@ -46,7 +47,8 @@ export default {
       endPage: 0,
       timeout: false,
       showPanel: false,
-      currentFilter: '',
+      showModal: false,
+      currentFilter: null,
       page: 0,
     }
   },
@@ -76,6 +78,35 @@ export default {
   },
 
   methods:{
+    async masterFilterSearch(result){
+
+      let projectStage;
+      let transport;
+      let cert;
+      this.page = 0;
+      this.startupList = [];
+      this.searchText = '';
+      result.forEach((item) => {
+
+        if(item.name === 'directions'){
+          this.currentFilter = item.id;
+        }else if(item.name === 'certs'){
+          cert = item.id;
+        }else if(item.name === 'transport'){
+          transport = item.id;
+        }else{
+          projectStage = item.id;
+        }
+
+      });
+      await startups(this.searchText, this.page + 1, this.currentFilter, projectStage, transport, cert).then((response) => {
+        this.startupList = this.startupList.concat(response.data.items);
+        this.count = response.data.count;
+        this.endPage = response.data.total_page;
+          setTimeout(()=>{ this.timeout = false}, 1000)
+      })
+      this.showModal = false;
+    },
     logout(){
       logout().then((response)=>{
         this.$router.push('/login');
@@ -140,6 +171,7 @@ export default {
   flex-direction: column;
   align-items: center;
   background-color: #F6F7FA;
+  overflow: hidden;
 
   .startupCards{
     display: grid;
