@@ -17,6 +17,10 @@ export async function signIn(email, password){
   return await axios.post(`${URL}login`, { email, password});
 }
 
+export async function testSignIn(){
+  return await axios.post(`${URL}login`, { email:'nesterov16@mail.ru', password: '8ihQ7sgU'});
+}
+
 export async function getUserProfile(){
   let accessToken = '';
   if(getCookie('accessToken') !== 'undefined'){

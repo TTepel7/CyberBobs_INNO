@@ -27,13 +27,16 @@
           <a class="registrationSwitch" @click="isRegistration = !isRegistration">{{ registrationSwitch }}</a>
         </div>
         <button class="enterButton" @click="isRegistration?signUp():signIn()">{{ buttonText }}</button>
+        <div class="field" @click="testSignIn">
+          Войти под тестовым аккаунтом
+        </div>
       </div>
     </div>
   </button>
 </template>
 
 <script>
-import { signUp, signIn, restore } from '~/api/api.js';
+import { signUp, signIn, restore,testSignIn } from '~/api/api.js';
 export default {
   data(){
     return {
@@ -57,6 +60,12 @@ export default {
         restore(this.email);
       }
 
+    },
+    testSignIn(){
+      testSignIn().then((response)=>{
+        localStorage.setItem('token', response.data.access_token);
+        this.$router.back()
+      })
     },
     signIn(){
       if(this.email === ""){
