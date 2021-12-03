@@ -58,6 +58,7 @@
 2) Параметры подключения к почтовому серверу SMTP (MAIL_HOST,MAIL_PORT,MAIL_USERNAME,MAIL_PASSWORD,MAIL_ENCRYPTION,MAIL_FROM_ADDRESS);
 3) Параметры подключения к ALGOLIA (ALGOLIA_APP_ID, ALGOLIA_SECRET). [Регистрация](https://www.algolia.com/users/sign_up);
 4) Адрес (APP_URL).
+5) Для проверки домена при регистрации (Почта на домене @ftim.ru) необходимо задать параметр EMAIL_CHECK=true
 
 Выполнить следущие команды из папки inno-api:
 ~~~
