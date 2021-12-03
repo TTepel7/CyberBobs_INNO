@@ -1,5 +1,5 @@
 <template>
-  <div class="root">
+  <div class="searchField">
     <div class="content">
       <img class="icon" :src="require('./search.svg')"/>
       <input
@@ -30,9 +30,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.root{
+.searchField{
   display: flex;
   justify-content: space-between;
+  width: 926px;
   border-radius: 48px;
   box-shadow: 0px 10px 10px 2px rgba(0, 0, 0, 0.05);
 
