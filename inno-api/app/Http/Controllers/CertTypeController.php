@@ -14,7 +14,7 @@ class CertTypeController extends Controller
      */
     public function index()
     {
-        //
+        return Cert_type::all();
     }
 
     /**

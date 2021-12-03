@@ -18,12 +18,26 @@ class StartupController extends Controller
         $query=$request->get('query','');
         $page=$request->get('page',1);
         $direction=$request->get('direction_id',false);
+        $project_stage=$request->get('project_stage_id',false);
+        $transport_type_id=$request->get('transport_type_id',false);
+        $cert_type_id=$request->get('cert_type_id',false);
+
+        $startups = Startup::search($query);
 
         if($direction) {
-            $startups = Startup::search($query)->where('directions.id',$direction)->paginate(10, 'page', $page);
-        }else{
-            $startups = Startup::search($query)->paginate(10, 'page', $page);
+            $startups=$startups->where('directions.id',$direction);
         }
+        if($project_stage) {
+            $startups=$startups->where('project_stage_id',$project_stage);
+        }
+        if($transport_type_id) {
+            $startups=$startups->where('transport_type_id',$transport_type_id);
+        }
+        if($cert_type_id) {
+            $startups=$startups->where('cert_type_id',$cert_type_id);
+        }
+        $startups = $startups->paginate(10, 'page', $page);
+
         return [
            'items'=> $startups->items(),
             'current_page'=>$page,

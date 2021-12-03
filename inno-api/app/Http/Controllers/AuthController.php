@@ -45,7 +45,6 @@ class AuthController extends Controller
         if (!$token = auth()->attempt($validator->validated())) {
             return response()->json(['error' => 'Wrong Login or Password.'], 401);
         }
-
         return $this->createNewToken($token);
     }
 
@@ -152,7 +151,7 @@ class AuthController extends Controller
             $user['email_verified_at'] = new \DateTime();
             $user['verify_token']=null;
             $user->save();
-            return array("message" => "Email verification done.");
+            return response()->redirectTo('http://innocase.cyberbobs.xsph.ru/');
         } else {
             return response()->json(['error' => 'Error'], 400);
         }

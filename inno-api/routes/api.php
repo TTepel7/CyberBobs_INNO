@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/verify_password/',[AuthController::class,'verify'])->name('verify');
 Route::post('/startups',[\App\Http\Controllers\StartupController::class,'index'])->middleware(['api','auth:api']);
 Route::get('/directions',[\App\Http\Controllers\DirectionController::class,'index'])->middleware(['api','auth:api']);
+Route::get('/certs',[\App\Http\Controllers\CertTypeController::class,'index'])->middleware(['api','auth:api']);
+Route::get('/transport',[\App\Http\Controllers\TransportTypeController::class,'index'])->middleware(['api','auth:api']);
+Route::get('/project_stages',[\App\Http\Controllers\ProjectStageController::class,'index'])->middleware(['api','auth:api']);
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'

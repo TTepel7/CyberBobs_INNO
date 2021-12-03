@@ -14,7 +14,7 @@ class ProjectStageController extends Controller
      */
     public function index()
     {
-        //
+        return Project_stage::all();
     }
 
     /**
