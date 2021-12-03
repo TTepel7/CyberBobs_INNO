@@ -5,8 +5,9 @@
     <div v-if="startup.project_stage_id > 5" >
       <LandingPilot v-for="pilot in startup.pilots" :key='pilot.ok' :item='pilot' />
     </div>
+    <LandingPresentation v-if="startup.project_stage_id <= 5" :item="startup" />
     <LandingContacts :item='startup'/>
-    <LandingPresentation v-if="startup.project_stage_id < 5" :item="startup" />
+
 
   </div>
 </template>

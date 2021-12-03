@@ -40,9 +40,7 @@
               </div>
             </div>
           </div>
-
         </div>
-
       </div>
     </div>
   </div>
@@ -127,12 +125,15 @@ export default {
 
   .name {
     position: relative;
+    display: flex;
     font-weight: 300;
     font-size: 36px;
     line-height: 27px;
     text-align: justify;
     color: #25222C;
-    margin-bottom: 14px;;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 14px;
   }
 
   .phone{
@@ -169,18 +170,21 @@ export default {
     margin-right: 34px;;
   }
 
+  .icon{
+    margin-right: 14px;
+  }
+
   .point{
     margin: 0 15px;
   }
 
   .tag{
-    position: absolute;
     top: -20px;
     right: -140px;
     font-weight: 300;
     font-size: 20px;
     line-height: 24px;
-
+    margin-left: 20px;
     color: #FFFFFF;
     background-color: #009A96;
     border-radius: 43px;

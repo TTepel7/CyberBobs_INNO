@@ -42,10 +42,7 @@ export default {
       let seconds = date.getSeconds() < 10? `0${date.getSeconds()}`:date.getSeconds();
       return day+
             "/"+month+
-            "/"+date.getFullYear()+
-            " "+ hours +
-            ":"+ minutes+
-            ":"+ seconds;
+            "/"+date.getFullYear()
 
     }
   },

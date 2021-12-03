@@ -3,7 +3,7 @@
     <p class="title">Я не нашёл нужное решение</p>
     <div class="buttons">
       <button class="button" @click="$emit('showMaster')">Воспользоваться мастер-фильтром</button>
-      <button class="button_outline">Оставить запрос</button>
+      <button class="button_outline" @click="$emit('showRequest')">Оставить запрос</button>
     </div>
   </div>
 </template>

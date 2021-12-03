@@ -62,6 +62,9 @@ export default {
 
   .cover {
     grid-area: cover;
+    width: 520px;
+    height: 478px;
+    border-radius: 40px;
   }
 
   .tag{
