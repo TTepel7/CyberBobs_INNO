@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Startup;
+use App\Models\Pilot;
 use Illuminate\Http\Request;
 
-class StartupController extends Controller
+class PilotController extends Controller
 {
     /**
+     * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $startups=Startup::all();
-        return $startups;
+        //
     }
 
     /**
@@ -41,10 +41,10 @@ class StartupController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Startup  $startup
+     * @param  \App\Models\Pilot  $pilot
      * @return \Illuminate\Http\Response
      */
-    public function show(Startup $startup)
+    public function show(Pilot $pilot)
     {
         //
     }
@@ -52,10 +52,10 @@ class StartupController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Startup  $startup
+     * @param  \App\Models\Pilot  $pilot
      * @return \Illuminate\Http\Response
      */
-    public function edit(Startup $startup)
+    public function edit(Pilot $pilot)
     {
         //
     }
@@ -64,10 +64,10 @@ class StartupController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Startup  $startup
+     * @param  \App\Models\Pilot  $pilot
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Startup $startup)
+    public function update(Request $request, Pilot $pilot)
     {
         //
     }
@@ -75,10 +75,10 @@ class StartupController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Startup  $startup
+     * @param  \App\Models\Pilot  $pilot
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Startup $startup)
+    public function destroy(Pilot $pilot)
     {
         //
     }

@@ -23,7 +23,8 @@ class CreateStartupsTable extends Migration
             $table->foreignId('cert_type_id')->constrained('cert_types');
             $table->foreignId('leader_id')->constrained('team_members');
             $table->foreignId('team_id')->constrained('teams');
-
+            $table->foreignId('project_stage_id')->constrained('project_stages');
+            $table->string('image');
             $table->timestamps();
         });
     }

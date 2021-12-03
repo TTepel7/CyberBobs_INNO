@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Team extends Model
+class Pilot extends Model
 {
     use HasFactory;
-    public function staff_type()
+    public function pilot_owner()
     {
-        return $this->belongsTo(Staff_type::class);
+        return $this->belongsTo(Team::class);
     }
-    protected $with=['staff_type'];
+    protected $with=['pilot_owner'];
 }

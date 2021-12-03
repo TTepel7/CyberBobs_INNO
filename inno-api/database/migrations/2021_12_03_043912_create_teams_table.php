@@ -18,10 +18,10 @@ class CreateTeamsTable extends Migration
             $table->string('short_name');
             $table->string('activity')->nullable();
             $table->string('logo')->nullable();
-            $table->string('ur_name');
-            $table->string('inn');
-            $table->foreignId('staff_type_id')->constrained('staff_types');
-            $table->string('site_url');
+            $table->string('ur_name')->nullable();
+            $table->string('inn')->nullable();
+            $table->foreignId('staff_type_id')->nullable()->constrained('staff_types');
+            $table->string('site_url')->nullable();
             $table->timestamps();
         });
     }
