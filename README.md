@@ -45,11 +45,11 @@
 
 УСТАНОВКА
 ------------
-### Установка пакета name
+### Установка Backend
 
-Выполните 
+Выполнить следущие команды из папки inno-api
 ~~~
-sudo apt-get update
+composer install
 sudo apt-get upgrade
 sudo apt-get install name1
 sudo apt-get install mariadb-client mariadb-server
@@ -90,6 +90,6 @@ composer install
 
 РАЗРАБОТЧИКИ
 
-<h4>Иванов Иван fullstack https://t.me/test@name1 </h4>
-
+<h4>Пепелышев Дмитрий Backend</h4>
+<h4>Нестеров Александр Frontend</h4>
 
