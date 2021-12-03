@@ -4,14 +4,15 @@
       <button class="logoutButton" @click='logout'>Выйти</button>
     </Header>
     <SearchField class="searchField" v-model="searchText"
-        placeholder="Начинайте вводить..." @update="getStartups" />
+        placeholder="Начинайте вводить..." @update="filter" />
 
     <h1 class="title">[Витрина решений]</h1>
-    <p class="description">{{ `${startupList.count} инновационных решений под любые ваши цели` }}</p>
+    <p class="description">{{ `${count} инновационных решений под любые ваши цели` }}</p>
     <div class="startupCards">
-      <StartupCard v-for="item in startupList.items" :key='item.id' :item='item'/>
+      <StartupCard v-for="item in startupList" :key='item.id' :item='item'/>
     </div>
     <FloatingPanel :active="showPanel" />
+    <MasterFilterModal />
   </div>
 </template>
 
@@ -21,6 +22,7 @@ import SearchField from '~/components/SearchField/SearchField.vue';
 import StartupCard from '~/components/StartupCard.vue';
 import FloatingPanel from '~/components/FloatingPanel.vue';
 import Header from '~/components/Header.vue';
+import MasterFilterModal from '~/components/MasterFilterModal.vue';
 
 export default {
   components: {
@@ -28,19 +30,27 @@ export default {
     StartupCard,
     Header,
     FloatingPanel,
+    MasterFilterModal,
   },
   data(){
     return {
       userData: {},
       searchText: '',
-      startupList: null,
+      startupList: [],
+      count: 0,
       timeout: false,
       showPanel: false,
+      page: 0,
     }
   },
   head(){
     return {
       title: 'Витрина',
+    }
+  },
+  watch:{
+    page(){
+      this.getStartups()
     }
   },
   async fetch(){
@@ -60,11 +70,17 @@ export default {
         this.$router.push('/login');
       });
     },
+    filter(){
+      this.page = 0;
+      this.startupList = [];
+      this.getStartups();
+    },
     async getStartups(){
       if(!this.timeout) {
         this.timeout = true;
-        await startups(this.searchText).then((response) => {
-          this.startupList = response.data;
+        await startups(this.searchText, this.page + 1).then((response) => {
+          this.startupList = this.startupList.concat(response.data.items);
+          this.count = response.data.count;
           setTimeout(()=>{ this.timeout = false}, 1000)
         })
       }
@@ -74,11 +90,11 @@ export default {
         document.body.scrollHeight, document.documentElement.scrollHeight,
         document.body.offsetHeight, document.documentElement.offsetHeight,
         document.body.clientHeight, document.documentElement.clientHeight
+
       )
-      if (window.scrollY + document.body.clientHeight >= scrollHeight) {
+      if (window.scrollY + window.innerHeight >= scrollHeight) {
         this.page++
       }
-      console.log(window.scrollY)
       this.showPanel = window.scrollY > 3000;
     },
   },

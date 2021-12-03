@@ -36,6 +36,7 @@ export default {
   width: 926px;
   border-radius: 48px;
   box-shadow: 0px 10px 10px 2px rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
 }
 
 .icon{
