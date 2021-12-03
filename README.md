@@ -53,7 +53,7 @@
 Установка зависимостей осуществляется с помощью [Composer](http://getcomposer.org/). Если у вас его нет вы можете установить его по инструкции
 на [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
 
-Также, необходимо провести настройку файла окружения, .env, необходимо задать следущие параметры
+Также, необходимо провести настройку файла окружения, .env (можно взять из .env.example), необходимо задать следущие параметры
 1) Параметры подключение к БД (DB_CONNECTION,DB_HOST,DB_PORT,DB_DATABASE,DB_USERNAME,DB_PASSWORD)
 2) Параметры подключения к почтовому серверу SMTP (MAIL_HOST,MAIL_PORT,MAIL_USERNAME,MAIL_PASSWORD,MAIL_ENCRYPTION,MAIL_FROM_ADDRESS)
 3) Параметры подключения к ALGOLIA (ALGOLIA_APP_ID, ALGOLIA_SECRET). [Регистрация](https://www.algolia.com/users/sign_up)
@@ -71,6 +71,24 @@ php artisan serve
 
 База данных вместе с тестовыми данными создается при установки бекенда, однако, можно использовать готовый [скрипт создания базы данных с структурой и тестовыми данными](https://raw.githubusercontent.com/TTepel7/INNO-ShowCase/main/Database.sql)
 
+### Установка Frontend
+
+После распаковки проекта inno-front необходимо изменить путь к API, он расположен в папке api, файл api.js. Константа URL, она должна соответсвовать URL от backend.
+После необходимо выполнить следущие команды:
+
+для Dev версии
+```
+npm install
+npm run dev
+```
+
+для Prod версии
+```
+npm install
+npm run generate
+```
+
+после файлы из папки dist перенести на apache сервер
 
 ### РАЗРАБОТЧИКИ
 
