@@ -17,7 +17,13 @@ class StartupController extends Controller
     {
         $query=$request->get('query','');
         $page=$request->get('page',1);
-        $startups=Startup::search($query)->paginate(10,'page',$page);
+        $direction=$request->get('direction_id',false);
+
+        if($direction) {
+            $startups = Startup::search($query)->where('directions.id',$direction)->paginate(10, 'page', $page);
+        }else{
+            $startups = Startup::search($query)->paginate(10, 'page', $page);
+        }
         return [
            'items'=> $startups->items(),
             'current_page'=>$page,
