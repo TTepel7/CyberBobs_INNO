@@ -24,7 +24,7 @@
    <li>Vue.js, Nuxt.js, Axios.</li>
 	<li>PHP 8, MySQL.</li>
 	<li>Laravel.</li>
-	<li>Algoria.</li>
+	<li>Algolia.</li>
 	<li>Webpack.</li>
  <li>Git, GitHub.</li>
   
@@ -38,7 +38,7 @@
 
 СРЕДА ЗАПУСКА
 ------------
-1) <b>Frontend:</b> требуется установленный web-сервер с поддержкой PHP(версия 7.4+) интерпретации (apache, nginx);
+1) <b>Frontend:</b> требуется установленный web-сервер с поддержкой Node.Js(версия 12+) интерпретации (apache, nginx);
 2) <b>Backend:</b> требуется установленный web-сервер с поддержкой PHP(версия 7.4+) интерпретации (apache, nginx);
 3) требуется установленная СУБД MariaDB (версия 10+);
 
@@ -50,24 +50,12 @@
 Выполнить следущие команды из папки inno-api
 ~~~
 composer install
-sudo apt-get upgrade
-sudo apt-get install name1
-sudo apt-get install mariadb-client mariadb-server
-git clone https://github.com/Sinclear/default_readme
-cd default_readme
-...
+php artisan serve
 ~~~
 ### База данных
 
-Необходимо создать пустую базу данных, а подключение к базе прописать в конфигурационный файл сервиса по адресу: папка_сервиса/...
-~~~
-sudo systemctl restart mariadb
-sudo mysql_secure_installation
-mysql -u root -p
-mypassword
-CREATE DATABASE mynewdb;
-quit
-~~~
+[Скрипт создания базы данных с структурой и тестовыми данными ](https://raw.githubusercontent.com/TTepel7/INNO-ShowCase/main/Database.sql)
+
 ### Выполнение миграций
 
 Для заполнения базы данных системной информацией выполните в корневой папке сервиса: 
