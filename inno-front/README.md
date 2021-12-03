@@ -1,6 +1,6 @@
 # inno-front
 
-## Build Setup
+## Базовая установка
 
 ```bash
 # install dependencies
