@@ -14,7 +14,7 @@ class TransportTypeController extends Controller
      */
     public function index()
     {
-        //
+        return Transport_type::all();
     }
 
     /**
