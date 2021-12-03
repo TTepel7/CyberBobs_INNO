@@ -64,7 +64,8 @@ export default {
     testSignIn(){
       testSignIn().then((response)=>{
         localStorage.setItem('token', response.data.access_token);
-        this.$router.back()
+        console.log("AAAAA??")
+        this.$router.replace({ name: 'index'} )
       })
     },
     signIn(){
@@ -78,7 +79,8 @@ export default {
         signIn(this.email, this.password).then((response) => {
           if(this.isRememberMe) localStorage.setItem('token', response.data.access_token);
           else document.cookie = `accessToken=${response.data.access_token}`
-          this.$router.back()
+
+          this.$router.replace({ name: 'index'} )
         }).catch((error ) => {
           const response = error.response.data;
           if(response['email'] === "The email must be a valid email address."){
@@ -108,7 +110,7 @@ export default {
         this.errorText = "Пароль должен быть не менее 8 символов и должен иметь 1 большую, 1 маленькую букву, 1 цифру и 1 спец. символ.";
       }else{
         signUp(this.firstName, this.lastName, this.email, this.password, this.repeatPassword).then((response) => {
-            this.$router.back()
+            this.$router.replace({ name: 'index'} )
         }).catch((error) => {
           if(error['email'] === "The email must be a valid email address."){
             this.errorText = 'Введите корректную почту'
