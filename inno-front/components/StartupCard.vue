@@ -4,7 +4,7 @@
     <div class="content">
       <div class="header">
       <div class="directions">
-        <div v-for='direction in item.directions' :key='direction.id' class="direction">{{ direction.name }}</div>
+        <div v-for='direction in item.directions' :key='direction.id' class="direction">{{ direction.alias }}</div>
       </div>
       <div class="lastUpdate">{{ date }}</div>
     </div>
@@ -66,13 +66,16 @@ export default {
   box-shadow: 0px 10px 10px 2px rgba(0, 0, 0, 0.05);
 
   .direction{
+    padding: 4px 6px;
     font-weight: 300;
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 14px;
+    line-height: 20px;
     color: #25222C;
     border: 1px solid #009A96;
     box-sizing: border-box;
     border-radius: 43px;
+    margin-right: 6px;
+    margin-bottom: 4px;
   }
 
   .directions{
@@ -118,6 +121,7 @@ export default {
 
   .header{
     display: flex;
+    justify-content: space-between;
     grid-area: header;
   }
 
