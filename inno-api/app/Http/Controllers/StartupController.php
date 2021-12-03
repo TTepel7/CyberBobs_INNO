@@ -75,7 +75,7 @@ class StartupController extends Controller
      */
     public function show(Startup $startup)
     {
-        //
+        return $startup;
     }
 
     /**

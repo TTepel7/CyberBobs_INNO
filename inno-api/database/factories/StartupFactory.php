@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Cert_type;
 use App\Models\Project_stage;
+use App\Models\ProjectStatus;
 use App\Models\Startup;
 use App\Models\Team;
 use App\Models\Team_member;
@@ -31,7 +32,8 @@ class StartupFactory extends Factory
             'team_id'=>Team::where('id','>',6)->get()->random(),
             'project_stage_id'=>Project_stage::get()->random(),
             'image'=>$this->faker->imageUrl(),
-
+            'pdf_url'=>'http://innoapi.cyberbobs.xsph.ru/CyberBobs.pdf',
+            'project_status_id'=>ProjectStatus::get()->random()
         ];
     }
 }

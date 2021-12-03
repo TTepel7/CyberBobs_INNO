@@ -93,5 +93,19 @@ class DatabaseSeeder extends Seeder
             'name' => 'Администратор Московского парковочного пространства',
             'alias' => 'АМПП'
         ]]);
+
+        DB::table('project_statuses')->insert([[
+            'name' => 'В работе',
+            'alias' => 'В работе'
+        ], [
+            'name' => 'Приостановлен',
+            'alias' => 'Приостановлен'
+        ], [
+            'name' => 'Закрыт',
+            'alias' => 'Закрыт'
+        ], [
+            'name' => 'Отменен',
+            'alias' => 'Отменен'
+        ]]);
     }
 }

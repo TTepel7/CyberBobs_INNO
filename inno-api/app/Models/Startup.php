@@ -42,5 +42,9 @@ class Startup extends Model
     {
         return $this->belongsTo(Team::class);
     }
-    protected $with = ['directions','leader','project_stage','cert_type','transport_type','pilots','team'];
+    public function project_status()
+    {
+        return $this->belongsTo(ProjectStatus::class);
+    }
+    protected $with = ['directions','leader','project_stage','cert_type','transport_type','pilots','team','project_status'];
 }
