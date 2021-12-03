@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect('http://innocase.cyberbobs.xsph.ru/login');
+    return response()->json(['error' => 'Wrong Login or Password.'], 401);
 })->name('login');
