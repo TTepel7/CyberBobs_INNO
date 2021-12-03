@@ -64,7 +64,7 @@ export default {
     testSignIn(){
       testSignIn().then((response)=>{
         localStorage.setItem('token', response.data.access_token);
-        console.log("AAAAA??")
+
         this.$router.replace({ name: 'index'} )
       })
     },

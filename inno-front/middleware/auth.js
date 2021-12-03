@@ -8,10 +8,12 @@ function getCookie(name) {
 }
 
 export default ({ app, route, store, redirect }) => new Promise((resolve, reject) => {
+  console.log(getCookie('accessToken'));
   getUserProfile().then((response) => {
     resolve(true)
 
   }).catch((error)=> {
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAШИБКА")
     resolve(redirect('/login'))
   });
 })
