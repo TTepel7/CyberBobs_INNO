@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/verify_password/{token}',[AuthController::class,'verify'])->name('verify');
-Route::post('/startups',[\App\Http\Controllers\StartupController::class,'index'])->middleware('api');
+Route::post('/startups',[\App\Http\Controllers\StartupController::class,'index'])->middleware(['api','auth:api']);
 
 Route::group([
     'middleware' => 'api',
