@@ -144,13 +144,13 @@ class AuthController extends Controller
         return array("message" => "Check your e-mail. You can now login.");
     }
 
-    public function verify(Request $request,$token)
+    public function verify(Request $request)
     {
-//        $token = $request->get('token', '0');
+        $token = $request->get('token', '0');
         $user = User::where('verify_token', $token)->first();
         if (isset($user)) {
             $user['email_verified_at'] = new \DateTime();
-            unset($user['verify_token']);
+            $user['verify_token']=null;
             $user->save();
             return array("message" => "Email verification done.");
         } else {

@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/verify_password/{token}',[AuthController::class,'verify'])->name('verify');
+Route::get('/verify_password/',[AuthController::class,'verify'])->name('verify');
 Route::post('/startups',[\App\Http\Controllers\StartupController::class,'index'])->middleware(['api','auth:api']);
-
+Route::get('/directions',[\App\Http\Controllers\DirectionController::class,'index'])->middleware(['api','auth:api']);
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
