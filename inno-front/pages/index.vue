@@ -158,7 +158,7 @@ export default {
       if (window.scrollY + window.innerHeight >= scrollHeight && this.page+1 <= this.endPage) {
         this.page++
       }
-      this.showPanel = window.scrollY > 3000;
+      this.showPanel = window.scrollY > 1500;
     },
   },
 }
@@ -194,7 +194,7 @@ export default {
   }
 
   .searchField{
-    margin-top: 156px;
+    margin-top: 60px;
     margin-bottom: 36px;
   }
 

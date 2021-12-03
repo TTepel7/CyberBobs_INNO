@@ -21,7 +21,7 @@
         </div>
       </div>
       <button class="submitButton" @click="$emit('search', result)">
-        Попытаться найти
+        Найти идеальное решение
       </button>
     </div>
 

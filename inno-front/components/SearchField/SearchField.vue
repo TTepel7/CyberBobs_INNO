@@ -10,7 +10,7 @@
         v-on="$listeners"
       />
     </div>
-    <button class="button">Найти идеальное решение</button>
+    <button class="button">Попытаться найти</button>
   </div>
 </template>
 
