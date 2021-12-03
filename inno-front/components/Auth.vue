@@ -81,7 +81,6 @@ export default {
 
           if(this.isRememberMe) localStorage.setItem('token', response.data.access_token);
           else document.cookie = `accessToken=${response.data.access_token}`
-
           this.$router.replace({ name: 'index'} )
         }).catch((error ) => {
           const response = error.response.data;
