@@ -7,11 +7,14 @@
       </div>
       <div class="content">
         <p v-if='errorText' class="error">{{errorText}}</p>
-        <input v-if='isRegistration' class="inputField" v-model="firstName" placeholder='Введите имя' type="text" />
-        <input v-if='isRegistration' class="inputField" v-model="lastName" placeholder='Введите фамилию' type="text"/>
-        <input class="inputField" v-model="email" placeholder='Введите почту' type="text" />
-        <input class="inputField" v-model="password" placeholder='Введите пароль' type="password"/>
-        <input v-if='isRegistration' class="inputField" v-model="repeatPassword" placeholder='Повторите пароль' type="password"/>
+        <div class="inputFields">
+          <input v-if='isRegistration' class="inputField" v-model="firstName" placeholder='Введите имя' type="text" />
+          <input v-if='isRegistration' class="inputField" v-model="lastName" placeholder='Введите фамилию' type="text"/>
+          <input class="inputField" v-model="email" placeholder='Введите почту' type="text" />
+          <input class="inputField" v-model="password" placeholder='Введите пароль' type="password"/>
+          <input v-if='isRegistration' class="inputField" v-model="repeatPassword" placeholder='Повторите пароль' type="password"/>
+        </div>
+
 
         <div v-if="!isRegistration" class="field" @click="isRememberMe = !isRememberMe">
           <input type="checkbox" v-model="isRememberMe">
@@ -80,14 +83,23 @@ export default {
       }
     },
     signUp() {
-      if(this.repeatPassword !== this.password){
+      if(this.firstName === ""){
+        this.errorText = 'Введите имя'
+      }
+      else if(this.lastName === ""){
+        this.errorText = 'Введите фамилию'
+      }
+      else if(this.email === "" || !this.validateEmail(this.email)){
+        this.errorText = 'Введите корректную почту'
+      }
+      else if(this.repeatPassword !== this.password){
         this.errorText = "Пароли не совпадают";
       }
       else if(!this.validatePassword(this.password)){
         this.errorText = "Пароль должен быть не менее 8 символов и должен иметь 1 большую, 1 маленькую букву, 1 цифру и 1 спец. символ.";
       }else{
         signUp(this.firstName, this.lastName, this.email, this.password, this.repeatPassword).then((response) => {
-          this.$router.back()
+            this.$router.back()
         }).catch((error) => {
           if(error['email'] === "The email must be a valid email address."){
             this.errorText = 'Введите корректную почту'
@@ -96,6 +108,7 @@ export default {
           }else if(error['error'] === "Wrong Login or Password."){
             this.errorText = 'Неверный логин или пароль'
           }
+
         });
       }
 
@@ -130,7 +143,13 @@ export default {
   font-size: 12px;
   line-height: 18px;
   color: #ff0000;
+  margin: 0 auto;
+  margin-bottom: 12px;
+}
 
+.inputFields{
+  display: flex;
+  flex-direction: column;
 }
 
 .header{
@@ -154,7 +173,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 0 24px;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 .fog {
