@@ -2,7 +2,7 @@
   <div :class="classes">
     <p class="title">Я не нашёл нужное решение</p>
     <div class="buttons">
-      <button class="button">Воспользоваться мастер-фильтром</button>
+      <button class="button" @click="$emit('showMaster')">Воспользоваться мастер-фильтром</button>
       <button class="button_outline">Оставить запрос</button>
     </div>
   </div>
