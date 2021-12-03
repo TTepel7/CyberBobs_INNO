@@ -1,0 +1,36 @@
+@font-face {
+  font-family: "Moscow Sans";
+  src: local("Moscow Sans"),
+   url(~assets/fonts/Regular.ttf) format("truetype");
+}
+
+html {
+  font-family: "Moscow Sans";
+
+  & button{
+    font-family: "Moscow Sans";
+  }
+
+  & input{
+    font-family: "Moscow Sans";
+  }
+}
+
+button {
+  border: 0;
+  background-color: transparent;
+}
+
+input {
+  border: 0;
+  background-color: transparent;
+}
+
+a {
+  text-decoration: none;
+  color: #000000;
+
+  &:active{
+    color: #000000;
+  }
+}
