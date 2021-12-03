@@ -16,6 +16,5 @@ export default {
   justify-content: flex-end;
   padding: 24px 0;
   width: 100%;
-  box-shadow: 0px 10px 10px 2px rgba(0, 0, 0, 0.05);
 }
 </style>

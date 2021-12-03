@@ -69,14 +69,20 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #F6F7FA;
 
   & .startupCards{
     display: grid;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-items: center;
     grid-template-columns: repeat(2, 1fr);
     grid-row-gap: 82px;
     grid-column-gap: 106px;
+    width: 100%;
+    padding: 80px 100px;
+    margin-bottom: 312px;
+    background-color: #ffffff;
   }
 
   & .searchField{
@@ -105,6 +111,7 @@ export default {
     background-color: #009A96;
     border-radius: 8px;
     margin-right: 24px;
+    color: #ffffff;
   }
 }
 
