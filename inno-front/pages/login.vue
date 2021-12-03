@@ -10,5 +10,10 @@ export default {
   components:{
     Auth,
   },
+  head(){
+    return {
+        title: 'Вход в систему',
+      }
+  }
 }
 </script>

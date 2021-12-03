@@ -14,6 +14,11 @@ export default {
       userData: {},
     }
   },
+  head(){
+    return {
+        title: 'Витрина',
+      }
+  },
   async fetch(){
     this.userData = await getUserProfile();
   },
@@ -24,6 +29,6 @@ export default {
         this.$router.push('/login');
       });
     }
-  }
+  },
 }
 </script>
