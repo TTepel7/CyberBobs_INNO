@@ -35,11 +35,13 @@ export default {
   computed:{
     date(){
       let date = new Date(this.item.updated_at);
+      let day = date.getDate() < 10?`0${date.getDate()}`:date.getDate()
+      let month = date.getMonth()+1 < 10?`0${date.getMonth()+1}`:date.getMonth()+1
       let hours = date.getHours() < 10? `0${date.getHours()}`:date.getHours();
       let minutes = date.getMinutes() < 10? `0${date.getMinutes()}`:date.getMinutes();
       let seconds = date.getSeconds() < 10? `0${date.getSeconds()}`:date.getSeconds();
-      return date.getDate()+
-            "/"+(date.getMonth()+1)+
+      return day+
+            "/"+month+
             "/"+date.getFullYear()+
             " "+ hours +
             ":"+ minutes+
@@ -61,8 +63,9 @@ export default {
     'cover text'
     'cover footer';
   grid-template-columns: min-content;
+  box-shadow: 0px 10px 10px 2px rgba(0, 0, 0, 0.05);
 
-  & .direction{
+  .direction{
     font-weight: 300;
     font-size: 20px;
     line-height: 24px;
@@ -72,31 +75,32 @@ export default {
     border-radius: 43px;
   }
 
-  & .directions{
+  .directions{
     display: flex;
     flex-wrap: wrap;
   }
 
-  & .avatar{
+  .avatar{
     width: 38px;
     height: 38px;
     margin-right: 10px;
     border-radius: 50%;
   }
 
-  & .author{
+  .author{
     display: flex;
     align-items: center;
+    max-width: 200px;
   }
 
-  & .data{
+  .data{
     width: 424px;
     height: 200px;
     text-overflow: ellipsis;
     overflow: hidden;
   }
 
-  & .title {
+  .title {
     grid-area: title;
     font-weight: 300;
     font-size: 40px;
@@ -104,7 +108,7 @@ export default {
     color: #25222C;
   }
 
-  & .footer{
+  .footer{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -112,12 +116,12 @@ export default {
 
   }
 
-  & .header{
+  .header{
     display: flex;
     grid-area: header;
   }
 
-  & .text{
+  .text{
     grid-area: text;
     font-weight: 300;
     font-size: 18px;
@@ -125,32 +129,35 @@ export default {
     color: #25222C;
   }
 
-  & .lastUpdate{
+  .lastUpdate{
     font-weight: 300;
     font-size: 18px;
     line-height: 22px;
     color: #6E798C;
   }
 
-  & .username{
+  .username{
     font-weight: 300;
     font-size: 18px;
     line-height: 22px;
     color: #009A96;
   }
 
-  & .getMore{
+  .getMore{
     font-weight: 300;
     font-size: 18px;
     line-height: 22px;
     color: #009A96;
   }
 
-  & .content{
+  .content{
     padding: 28px 32px 10px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
-  & .cover{
+  .cover{
     width: 320px;
     height: 356px;
     background-color: grey;
