@@ -11,9 +11,10 @@ class StartupController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $startups=Startup::all();
+        $query=$request->get('query','');
+        $startups=Startup::search($query)->get();
         return $startups;
     }
 
