@@ -18,7 +18,9 @@ class StartupController extends Controller
         $query=$request->get('query','');
         $page=$request->get('page',1);
         $direction=$request->get('direction_id',false);
-        $project_stage=$request->get('project_stage_id',false);
+
+        $project_stage_pilot=$request->get('project_stage_pilot',false);
+
         $transport_type_id=$request->get('transport_type_id',false);
         $cert_type_id=$request->get('cert_type_id',false);
 
@@ -27,8 +29,8 @@ class StartupController extends Controller
         if($direction) {
             $startups=$startups->where('directions.id',$direction);
         }
-        if($project_stage) {
-            $startups=$startups->where('project_stage_id',$project_stage);
+        if($project_stage_pilot) {
+            $startups=$startups->where('project_stage_id',5);
         }
         if($transport_type_id) {
             $startups=$startups->where('transport_type_id',$transport_type_id);
