@@ -23,7 +23,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register','verify','restorePassword']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'verify', 'restorePassword']]);
     }
 
     /**
@@ -65,12 +65,12 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 400);
         }
-        $token=Str::random(100);
+        $token = Str::random(100);
         $user = User::create(array_merge(
             $validator->validated(),
             ['password' => bcrypt($request->password),
-                'verify_token'=>$token
-                ]
+                'verify_token' => $token
+            ]
         ));
         Mail::to($user['email'])->send(new VerifyEmail(['email' => $user['email'], 'token' => $token]));
         return response()->json([
@@ -121,12 +121,17 @@ class AuthController extends Controller
      */
     protected function createNewToken($token)
     {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60,
-            'user' => auth()->user()
-        ]);
+        $user = auth()->user();
+        if (!isset($user['email_verified_at'])) {
+            return response()->json(['error' => 'Verify your email'], 401);
+        } else {
+            return response()->json([
+                'access_token' => $token,
+                'token_type' => 'bearer',
+                'expires_in' => auth('api')->factory()->getTTL() * 60,
+                'user' => auth()->user()
+            ]);
+        }
     }
 
 
@@ -149,7 +154,7 @@ class AuthController extends Controller
         $user = User::where('verify_token', $token)->first();
         if (isset($user)) {
             $user['email_verified_at'] = new \DateTime();
-            $user['verify_token']=null;
+            $user['verify_token'] = null;
             $user->save();
             return response()->redirectTo('http://innocase.cyberbobs.xsph.ru/');
         } else {
