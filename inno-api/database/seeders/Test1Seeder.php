@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Direction;
 use App\Models\Pilot;
 use App\Models\Startup;
 use App\Models\Team;
@@ -21,6 +22,7 @@ class Test1Seeder extends Seeder
         Team::factory(45)->create();
         Startup::factory(120)->create()->each(function ($startup){
             $startup->pilots()->saveMany(Pilot::factory(rand(1,3))->make());
+            $startup->directions()->saveMany(Direction::get()->random(rand(1,2)));
         });
     }
 }
