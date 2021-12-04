@@ -30,7 +30,7 @@ class StartupController extends Controller
             $startups=$startups->where('directions.id',$direction);
         }
         if($project_stage_pilot) {
-            $startups=$startups->where('project_stage_id',5);
+            $startups=$startups->where('prod',$project_stage_pilot);
         }
         if($transport_type_id) {
             $startups=$startups->where('transport_type_id',$transport_type_id);

@@ -46,5 +46,9 @@ class Startup extends Model
     {
         return $this->belongsTo(ProjectStatus::class);
     }
+    public function getProdAttribute(){
+        return $this->attributes['project_stage_id']>=5?1:2;
+    }
     protected $with = ['directions','leader','project_stage','cert_type','transport_type','pilots','team','project_status'];
+    protected $appends=['prod'];
 }
