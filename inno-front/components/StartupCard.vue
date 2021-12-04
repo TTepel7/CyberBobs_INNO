@@ -17,7 +17,7 @@
         <img class="avatar" :src='item.team.logo'>
         <div class="username">{{ item.team.short_name }}</div>
       </div>
-      <div class="getMore">Узнать больше 🡢</div>
+      <NuxtLink :to='`landing/${item.id}`' class="getMore">Узнать больше 🡢</NuxtLink>
     </div>
     </div>
   </div>
@@ -42,10 +42,7 @@ export default {
       let seconds = date.getSeconds() < 10? `0${date.getSeconds()}`:date.getSeconds();
       return day+
             "/"+month+
-            "/"+date.getFullYear()+
-            " "+ hours +
-            ":"+ minutes+
-            ":"+ seconds;
+            "/"+date.getFullYear()
 
     }
   },

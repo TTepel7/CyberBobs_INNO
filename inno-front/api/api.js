@@ -14,12 +14,14 @@ function getToken(){
   let accessToken = '';
   if(localStorage.getItem('token')){
     accessToken = localStorage.getItem('token');
+    return accessToken;
   }
-  if(getCookie('accessToken') !== 'undefined'){
+  if(getCookie('accessToken') && getCookie('accessToken') !== 'undefined'){
     accessToken = getCookie('accessToken');
+    return accessToken;
   }
 
-  return accessToken;
+
 }
 
 export async function signUp( first_name, last_name, email, password, password_confirmation ){
@@ -64,6 +66,15 @@ export async function startups(query, page, direction_id, project_stage_id, tran
     headers: {'Authorization': `Bearer ${accessToken}`, "Access-Control-Allow-Origin": "*"}
   });
   return await instance.post(`${URL}startups`, { query, page, direction_id,project_stage_id,transport_type_id,cert_type_id } );
+}
+
+export async function getStartup(id){
+  let accessToken = getToken();
+  const instance = axios.create({
+    baseURL: URL,
+    headers: {'Authorization': `Bearer ${accessToken}`, "Access-Control-Allow-Origin": "*"}
+  });
+  return await instance.get(`${URL}startups/${id}`);
 }
 
 export async function directions(){

@@ -16,8 +16,9 @@
     <div class="startupCards">
       <StartupCard v-for="item in startupList" :key='item.id' :item='item'/>
     </div>
-    <FloatingPanel :active="showPanel" @showMaster="showModal = true" />
+    <FloatingPanel :active="showPanel" @showMaster="showModal = true" @showRequest="showRequestModal = true" />
     <MasterFilterModal v-if='showModal' @close="showModal = false" @search='masterFilterSearch'/>
+    <RequestModal v-if='showRequestModal' @close="showRequestModal = false" @send='showRequestModal = false'/>
   </div>
 </template>
 
@@ -28,6 +29,7 @@ import StartupCard from '~/components/StartupCard.vue';
 import FloatingPanel from '~/components/FloatingPanel.vue';
 import Header from '~/components/Header.vue';
 import MasterFilterModal from '~/components/MasterFilterModal/MasterFilterModal.vue';
+import RequestModal from '~/components/RequestModal/RequestModal.vue';
 
 export default {
   components: {
@@ -36,6 +38,7 @@ export default {
     Header,
     FloatingPanel,
     MasterFilterModal,
+    RequestModal,
   },
   data(){
     return {
@@ -48,6 +51,7 @@ export default {
       timeout: false,
       showPanel: false,
       showModal: false,
+      showRequestModal: false,
       currentFilter: null,
       page: 0,
     }
@@ -158,7 +162,7 @@ export default {
       if (window.scrollY + window.innerHeight >= scrollHeight && this.page+1 <= this.endPage) {
         this.page++
       }
-      this.showPanel = window.scrollY > 3000;
+      this.showPanel = window.scrollY > 1500;
     },
   },
 }
@@ -180,7 +184,6 @@ export default {
     justify-items: center;
     grid-template-columns: repeat(2, 1fr);
     grid-row-gap: 82px;
-    grid-column-gap: 106px;
     width: 100%;
     padding: 80px 0;
     margin-bottom: 312px;
@@ -194,7 +197,7 @@ export default {
   }
 
   .searchField{
-    margin-top: 156px;
+    margin-top: 60px;
     margin-bottom: 36px;
   }
 

@@ -76,10 +76,11 @@ export default {
         this.errorText = "Введите пароль";
       }
       else{
+        this.errorText = '';
         signIn(this.email, this.password).then((response) => {
+
           if(this.isRememberMe) localStorage.setItem('token', response.data.access_token);
           else document.cookie = `accessToken=${response.data.access_token}`
-
           this.$router.replace({ name: 'index'} )
         }).catch((error ) => {
           const response = error.response.data;
@@ -109,7 +110,8 @@ export default {
       else if(!this.validatePassword(this.password)){
         this.errorText = "Пароль должен быть не менее 8 символов и должен иметь 1 большую, 1 маленькую букву, 1 цифру и 1 спец. символ.";
       }else{
-        this.isRegistration= false,
+        this.isRegistration= false;
+
         signUp(this.firstName, this.lastName, this.email, this.password, this.repeatPassword).then((response) => {
           this.$router.replace({ name: 'index'} )
 
