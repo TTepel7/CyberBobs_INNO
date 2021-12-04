@@ -39,8 +39,10 @@ export default {
 
 <style lang="scss" scoped>
 .landingPilot{
+  display: flex;
+  flex-direction: column;
   padding: 60px 200px 60px 240px;
-  background-color: #ffffff;
+  background-color: #E5E5E5;
 
   .downloadButton{
     font-weight: 300;
@@ -50,7 +52,7 @@ export default {
     padding: 20px 38px;
     background-color: #009A96;
     border-radius: 48px;
-    float: right;
+    margin-left: auto;
   }
 
   .timeline{

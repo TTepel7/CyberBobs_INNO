@@ -53,6 +53,7 @@ export default {
       showModal: false,
       showRequestModal: false,
       currentFilter: null,
+      pilot: null,
       page: 0,
     }
   },
@@ -91,25 +92,24 @@ export default {
       this.startupList = [];
       this.searchText = '';
       result.forEach((item) => {
-
+        console.log(item)
         if(item.name === 'directions'){
           this.currentFilter = item.id;
-        }else if(item.name === 'certs'){
-          cert = item.id;
         }else if(item.name === 'transport'){
           transport = item.id;
-        }else{
-          projectStage = item.id;
+        }else if(item.name === 'projectStages'){
+          this.pilot = item.id
         }
 
+        startups(this.searchText, this.page + 1, this.currentFilter, projectStage, transport, cert, this.pilot).then((response) => {
+          this.startupList = this.startupList.concat(response.data.items);
+          this.count = response.data.count;
+          this.endPage = response.data.total_page;
+            setTimeout(()=>{ this.timeout = false}, 1000)
+        })
+        this.showModal = false;
       });
-      await startups(this.searchText, this.page + 1, this.currentFilter, projectStage, transport, cert).then((response) => {
-        this.startupList = this.startupList.concat(response.data.items);
-        this.count = response.data.count;
-        this.endPage = response.data.total_page;
-          setTimeout(()=>{ this.timeout = false}, 1000)
-      })
-      this.showModal = false;
+
     },
     logout(){
       logout().then((response)=>{
@@ -124,7 +124,7 @@ export default {
     async getStartups(){
       if(!this.timeout) {
         this.timeout = true;
-        await startups(this.searchText, this.page + 1, this.currentFilter).then((response) => {
+        await startups(this.searchText, this.page + 1, this.currentFilter, '', '', '', this.pilot).then((response) => {
           this.startupList = this.startupList.concat(response.data.items);
           this.count = response.data.count;
           this.endPage = response.data.total_page;

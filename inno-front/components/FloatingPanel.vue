@@ -29,8 +29,8 @@ export default {
   position: fixed;
   display: flex;
   flex-direction: column;
-  width: 1012px;
-  height: 176px;
+  width: 868px;
+  height: 124px;
   bottom: 86px;
   left: 50%;
   transform: translateX(-50%);
@@ -47,8 +47,8 @@ export default {
 
   .title{
     font-weight: 300;
-    font-size: 48px;
-    line-height: 58px;
+    font-size: 36px;
+    line-height: 42px;
     color: #25222C;
     margin: auto;
   }
@@ -62,13 +62,13 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 454px;
-    height: 68px;
+    width: 324px;
+    height: 52px;
     color: #ffffff;
     background-color: #009A96;
     border: 1px solid transparent;
     font-weight: 300;
-    font-size: 24px;
+    font-size: 18px;
     line-height: 29px;
     border-radius: 48px;
   }
@@ -76,13 +76,13 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 454px;
-    height: 68px;
+    width: 324px;
+    height: 52px;
     color: #25222C;
     background-color: #ffffff;
     border: 1px solid #009A96;
     font-weight: 300;
-    font-size: 24px;
+    font-size: 18px;
     line-height: 29px;
     border-radius: 48px;
   }

@@ -2,7 +2,7 @@
   <button class="fog">
     <div class="modal">
       <div class="header">
-        <h1>{{ title }}</h1>
+        <p>{{ title }}</p>
 
       </div>
       <div class="content">
@@ -14,21 +14,24 @@
           <input class="inputField" v-model="password" placeholder='Введите пароль' type="password"/>
           <input v-if='isRegistration' class="inputField" v-model="repeatPassword" placeholder='Повторите пароль' type="password"/>
         </div>
+        <div v-if='!isRegistration' class="field right">
+          <a class="rememberPassword" @click="rememberPassword" >Забыли пароль?</a>
+        </div>
 
 
-        <div v-if="!isRegistration" class="field" @click="isRememberMe = !isRememberMe">
+        <div v-if="!isRegistration" class="field rememberMe" @click="isRememberMe = !isRememberMe">
           <input type="checkbox" v-model="isRememberMe">
           Запомнить меня
         </div>
-        <div v-if='!isRegistration' class="field">
-          <a class="rememberPassword" @click="rememberPassword" >Забыли пароль?</a>
-        </div>
-        <div class="field">
-          <a class="registrationSwitch" @click="isRegistration = !isRegistration">{{ registrationSwitch }}</a>
-        </div>
+
+
         <button class="enterButton" @click="isRegistration?signUp():signIn()">{{ buttonText }}</button>
         <div class="field" @click="testSignIn">
           Войти под тестовым аккаунтом
+        </div>
+        <div class="field">
+          <p>{{ supportText }}</p>
+          <a class="registrationSwitch" @click="isRegistration = !isRegistration">{{ registrationSwitch }}</a>
         </div>
       </div>
     </div>
@@ -142,10 +145,13 @@ export default {
       return this.isRegistration?'Зарегистрироваться':'Войти';
     },
     registrationSwitch(){
-      return this.isRegistration?'Или нужно войти?':'Или нужно зарегистрироваться?';
+      return this.isRegistration?'Войти?':'Зарегистрироваться?';
+    },
+    supportText(){
+      return this.isRegistration?'Есть аккаунт?':'Нет аккаунта?';
     },
     title(){
-      return this.isRegistration?'Регистрация':'Вход в систему';
+      return this.isRegistration?'[Регистрация]':'[Вход в систему]';
     }
   }
 }
@@ -155,7 +161,7 @@ export default {
 
 .error{
   max-width: 180px;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 18px;
   color: #ff0000;
   margin: 0 auto;
@@ -167,15 +173,23 @@ export default {
   flex-direction: column;
 }
 
+.right{
+  justify-content: flex-end;
+}
+
 .header{
   display: flex;
   align-items: center;
+  font-size: 24px;
+  line-height: 29px;
+  color: #009A96;
 }
 .modal {
   position: absolute;
   background-color: #ffffff;
   left: 50%;
   top: 50%;
+  width: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -203,14 +217,20 @@ export default {
 }
 
 .inputField{
+  width: 234px;
   padding: 10px 12px;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
   font-size: 16px;
   line-height: 24px;
+  border: 1px solid #009A96;
+  box-sizing: border-box;
   color: #101010;
   letter-spacing: 0.02em;
-  border: 2px solid #101010;
-  border-radius: 8px;
+  border-radius: 48px;
+
+  &:focus{
+    outline: 0;
+  }
 }
 
 .enterButton{
@@ -221,7 +241,7 @@ export default {
   font-size: 16px;
   line-height: 20px;
   color: #ffffff;
-  background-color: #000000;
+  background-color: #009A96;
   border-radius: 8px;
   cursor: pointer;
 }
@@ -231,14 +251,34 @@ export default {
   font-size: 16px;
   line-height: 24px;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 12px;
 }
 
 .rememberPassword{
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
   cursor: pointer;
+  color: #009A96;
+  margin-left: auto;
+
 }
 
 .registrationSwitch{
+  font-size: 14px;
+  line-height: 17px;
+  text-decoration-line: underline;
+
+  color: #009A96;
   cursor: pointer;
+}
+
+.rememberMe{
+  font-size: 14px;
+  line-height: 17px;
+  color: #25222C;
+  margin-right: auto;
+
 }
 </style>

@@ -13,7 +13,7 @@
             <button v-if='currentStage > 0' class="leftButton" @click='previousStage'><img :src="require('./left.svg')" /></button>
           </div>
           <div class='answers'>
-            <button v-for="answer in answers" :key="answer.id" :class="answerClasses(answer.id)" @click="clickAnswer(answer.id)">{{ answer.alias }}</button>
+            <button v-for="answer in answers" :key="answer.id" :class="answerClasses(answer.id)" @click="clickAnswer(answer.id)">{{ answer.text }}</button>
           </div>
           <div class="rightButtonWrapper">
             <button v-if='currentStage < lastStage' class="rightButton" @click='nextStage'><img :src="require('./right.svg')" /></button>
@@ -33,21 +33,87 @@ import { directions, certs, transport, project_stages } from '~/api/api';
 
 const STAGE_LIST =  [
   {
-    id: 'directions',
-    question: "Какая стадия готовности проекта вас интересует?",
-  },
-  {
-    id:'certs',
-    question: "Какой вид транспорта вас интересует?",
-  },
-  {
-    id: 'transports',
-    question: "Какое направление для вас самое привлекательное?",
-  },
-  {
     id: 'projectStages',
-    question: "Необходимы ли вам сертификаты",
-  }
+    question: "Проекты на какой стадии вас интересуют",
+    answers:[
+      {
+        text: 'На этапе заявки',
+        id: 2,
+      },
+      {
+        text: 'На этапе пилотирования',
+        id: 1,
+      },
+      {
+        text: 'Не важно',
+        id: '',
+      },
+    ]
+  },
+  {
+    id:'transport',
+    question: "Выберите приоритетную организацию будущего решения?",
+    answers:[
+      {
+        text: 'Московский метрополитен',
+        id: 1,
+      },
+      {
+        text: 'Мосгорстранс',
+        id: 2,
+      },
+      {
+        text: 'ЦОДД',
+        id: 3,
+      },
+      {
+        text: 'Организатор перевозок',
+        id: 4,
+      },
+      {
+        text: 'Мостранспроект',
+        id: 5,
+      },
+      {
+        text: 'АМПП',
+        id: 6
+      },
+      {
+        text: 'Не важно',
+        id: '',
+      },
+    ]
+  },
+  {
+    id: 'direction',
+    question: "Наиболее привлекательное направление",
+    answers:[
+      {
+        text: 'Гор транспорт',
+        id: 1,
+      },
+      {
+        text: 'Мобильность',
+        id: 2,
+      },
+      {
+        text: 'Безопасность',
+        id: 3,
+      },
+      {
+        text: 'Экология',
+        id: 4,
+      },
+      {
+        text: 'ИТ',
+        id: 5,
+      },
+      {
+        text: 'Не важно',
+        id: '',
+      },
+    ]
+  },
 ];
 
 export default {
@@ -55,14 +121,10 @@ export default {
   data(){
     return {
       currentStage: 0,
-      lastStage: 3,
+      lastStage: 2,
       result: [
         {
-          name: 'directions',
-          id: null,
-        },
-        {
-          name: 'certs',
+          name: 'projectStages',
           id: null,
         },
         {
@@ -70,9 +132,9 @@ export default {
           id: null,
         },
         {
-          name: 'projectStages',
+          name: 'directions',
           id: null,
-        }
+        },
       ],
       directionList: [],
       certList: [],
@@ -82,7 +144,6 @@ export default {
   },
   async fetch(){
     this.directionList = await directions();
-    this.certList = await certs();
     this.transportList = await transport();
     this.projectStagesList = await project_stages();
   },
@@ -91,15 +152,7 @@ export default {
       return STAGE_LIST[this.currentStage].question;
     },
     answers(){
-      if(this.currentStage === 0){
-        return this.projectStagesList.data;
-      }else if(this.currentStage === 1){
-        return this.transportList.data;
-      }else if(this.currentStage === 2){
-        return this.directionList.data;
-      }else{
-        return this.certList.data;
-      }
+      return STAGE_LIST[this.currentStage].answers;
     }
   },
   methods:{
@@ -241,7 +294,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 1126px;
   }
 
   .submitButton{
