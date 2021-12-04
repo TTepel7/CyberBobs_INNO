@@ -8,6 +8,7 @@
       </div>
       <div class="lastUpdate">{{ date }}</div>
     </div>
+    <div class="direction alt">{{ item.project_stage_id >= 5 ? 'Пилот':'Идея' }}</div>
     <div class="data">
       <div class="title">{{ item.title }}</div>
       <div class="text">{{ item.description }}</div>
@@ -105,6 +106,10 @@ export default {
     font-size: 40px;
     line-height: 46px;
     color: #25222C;
+  }
+
+  .alt{
+    margin-right: auto;
   }
 
   .footer{

@@ -12,6 +12,16 @@
       <button v-for="direction in directionList" :key="direction.id" :class="filterClasses(direction.id)" @click="directionClick(direction.id)">
         {{ direction.alias }}
       </button>
+      <div class='divider'></div>
+      <button :class="pilotClasses(1)" @click="pilotClick(1)">
+        Пилот
+      </button>
+       <button :class="pilotClasses(2)" @click="pilotClick(2)">
+        Идея
+      </button>
+    </div>
+    <div class="filters">
+
     </div>
     <div class="startupCards">
       <StartupCard v-for="item in startupList" :key='item.id' :item='item'/>
@@ -67,6 +77,9 @@ export default {
       this.getStartups()
     },
     currentFilter(){
+      this.getStartups()
+    },
+    pilot(){
       this.getStartups()
     }
   },
@@ -145,10 +158,25 @@ export default {
         this.currentFilter = id;
       }
     },
+    pilotClick(id){
+      this.page = 0;
+      this.startupList = [];
+      if(id === this.pilot){
+        this.pilot = '';
+      }else{
+        this.pilot = id;
+      }
+    },
     filterClasses(id){
       return {
         filter: id !== this.currentFilter,
         activeFilter: id === this.currentFilter,
+      }
+    },
+    pilotClasses(id){
+      return {
+        filter: id !== this.pilot,
+        activeFilter: id === this.pilot,
       }
     },
     scrollY (event) {
@@ -212,6 +240,12 @@ export default {
     font-size: 18px;
     line-height: 27px;
     color:  #374A59;
+  }
+
+  .divider{
+    border-left: 1px solid #009A96;
+    height: 32px;
+    margin: 0 10px;
   }
 
   .logoutButton{

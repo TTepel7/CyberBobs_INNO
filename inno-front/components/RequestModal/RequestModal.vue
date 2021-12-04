@@ -145,7 +145,6 @@ export default {
       }
     },
     itemClass(id){
-      console.log(id)
       return {
         activeItem: this.currentItem === id,
         item: this.currentItem !== id,
