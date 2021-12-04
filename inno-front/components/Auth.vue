@@ -82,8 +82,15 @@ export default {
         this.errorText = '';
         signIn(this.email, this.password).then((response) => {
 
-          if(this.isRememberMe) localStorage.setItem('token', response.data.access_token);
-          else document.cookie = `accessToken=${response.data.access_token}`
+          if(this.isRememberMe) {
+
+            localStorage.setItem('token', response.data.access_token);
+            localStorage.setItem('tokenUpdated', Date.now());
+          }
+          else{
+            document.cookie = `accessToken=${response.data.access_token}`
+            document.cookie = `tokenUpdated=${Date.now()}`
+          }
           this.$router.replace({ name: 'index'} )
         }).catch((error ) => {
           const response = error.response.data;
