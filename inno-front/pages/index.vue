@@ -88,9 +88,7 @@ export default {
       let projectStage;
       let transport;
       let cert;
-      this.page = 0;
-      this.startupList = [];
-      this.searchText = '';
+
       result.forEach((item) => {
         console.log(item)
         if(item.name === 'directions'){
@@ -100,8 +98,10 @@ export default {
         }else if(item.name === 'projectStages'){
           this.pilot = item.id
         }
-
         startups(this.searchText, this.page + 1, this.currentFilter, projectStage, transport, cert, this.pilot).then((response) => {
+          this.page = 0;
+          this.startupList = [];
+          this.searchText = '';
           this.startupList = this.startupList.concat(response.data.items);
           this.count = response.data.count;
           this.endPage = response.data.total_page;
@@ -124,6 +124,7 @@ export default {
     async getStartups(){
       if(!this.timeout) {
         this.timeout = true;
+        console.log("AAAAAAAAAAAA")
         await startups(this.searchText, this.page + 1, this.currentFilter, '', '', '', this.pilot).then((response) => {
           this.startupList = this.startupList.concat(response.data.items);
           this.count = response.data.count;
