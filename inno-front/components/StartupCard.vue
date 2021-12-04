@@ -35,11 +35,8 @@ export default {
   computed:{
     date(){
       let date = new Date(this.item.updated_at);
-      let day = date.getDate() < 10?`0${date.getDate()}`:date.getDate()
-      let month = date.getMonth()+1 < 10?`0${date.getMonth()+1}`:date.getMonth()+1
-      let hours = date.getHours() < 10? `0${date.getHours()}`:date.getHours();
-      let minutes = date.getMinutes() < 10? `0${date.getMinutes()}`:date.getMinutes();
-      let seconds = date.getSeconds() < 10? `0${date.getSeconds()}`:date.getSeconds();
+      let day = date.getDate() < 10?`0${date.getDate()}`:date.getDate();
+      let month = date.getMonth()+1 < 10?`0${date.getMonth()+1}`:date.getMonth()+1;
       return day+
             "/"+month+
             "/"+date.getFullYear()
@@ -61,6 +58,8 @@ export default {
     'cover footer';
   grid-template-columns: min-content;
   box-shadow: 0px 10px 10px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  overflow: hidden;
 
   .direction{
     padding: 4px 6px;

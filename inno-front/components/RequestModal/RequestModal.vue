@@ -221,7 +221,7 @@ export default {
     line-height: 15px;
     color: #374A59;
     background: #F6F7FA;
-    border-radius: 16px 0px 0px 16px;
+    border-radius: 16px;
   }
   .groupInput{
     width: 656px;
@@ -231,7 +231,7 @@ export default {
     line-height: 15px;
     color: #374A59;
     background: #F6F7FA;
-    border-radius: 16px 0px 0px 16px;
+    border-radius: 16px;
   }
 
   .closeButton {

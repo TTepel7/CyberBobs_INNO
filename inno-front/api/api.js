@@ -59,13 +59,13 @@ export async function logout(){
   return await instance.post(`${URL}${auth}logout`);
 }
 
-export async function startups(query, page, direction_id, project_stage_id, transport_type_id, cert_type_id){
+export async function startups(query, page, direction_id, project_stage_id, transport_type_id, cert_type_id, project_stage_pilot){
   let accessToken = getToken();
   const instance = axios.create({
     baseURL: URL,
     headers: {'Authorization': `Bearer ${accessToken}`, "Access-Control-Allow-Origin": "*"}
   });
-  return await instance.post(`${URL}startups`, { query, page, direction_id,project_stage_id,transport_type_id,cert_type_id } );
+  return await instance.post(`${URL}startups`, { query, page, direction_id,project_stage_id,transport_type_id,cert_type_id,project_stage_pilot } );
 }
 
 export async function getStartup(id){

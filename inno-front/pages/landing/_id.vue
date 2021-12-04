@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LandingMain :item='startup' />
+    <LandingMain :item='startup' :pilot="startup.project_stage_id >= 5" />
     <LandingInfo :item='startup' />
     <div v-if="startup.project_stage_id > 5" >
       <LandingPilot v-for="pilot in startup.pilots" :key='pilot.ok' :item='pilot' />

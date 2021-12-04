@@ -66,7 +66,7 @@ export default {
 <style lang="scss" scoped>
 .landingContacts{
   padding: 60px 200px 60px 240px;
-  background-color: #ffffff;
+  background-color: #F6F7FA;
 
   .logo{
     width: 195px;

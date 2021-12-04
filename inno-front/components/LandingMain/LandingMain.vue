@@ -6,7 +6,7 @@
         <div class='tag'>{{ pilot?'Пилот':'Идея' }}</div>
       </div>
       <div class="directions">
-        <div v-for='direction in item.directions' :key="direction" class="direction" >
+        <div v-for='direction in item.directions' :key="direction.id" class="direction" >
           {{ direction.alias }}
         </div>
       </div>
@@ -55,6 +55,7 @@ export default {
   padding: 110px 200px 60px 240px;
   grid-template-areas: 'content cover';
   grid-column-gap: 234px;
+  background-color: #E5E5E5;
 
   .content{
     grid-area: content;
