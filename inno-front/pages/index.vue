@@ -90,7 +90,6 @@ export default {
       let cert;
 
       result.forEach((item) => {
-        console.log(item)
         if(item.name === 'directions'){
           this.currentFilter = item.id;
         }else if(item.name === 'transport'){
@@ -124,7 +123,6 @@ export default {
     async getStartups(){
       if(!this.timeout) {
         this.timeout = true;
-        console.log("AAAAAAAAAAAA")
         await startups(this.searchText, this.page + 1, this.currentFilter, '', '', '', this.pilot).then((response) => {
           this.startupList = this.startupList.concat(response.data.items);
           this.count = response.data.count;
