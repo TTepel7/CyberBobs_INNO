@@ -12,14 +12,20 @@ function getCookie(name) {
 
 function getToken(){
   let accessToken = '';
-  if(localStorage.getItem('token')){
-    accessToken = localStorage.getItem('token');
-    return accessToken;
+
+  if(getCookie('tokenUpdated') > localStorage.getItem('tokenUpdated')){
+    if(getCookie('accessToken') && getCookie('accessToken') !== 'undefined'){
+      accessToken = getCookie('accessToken');
+      return accessToken;
+    }
+  }else{
+    if(localStorage.getItem('token')){
+      accessToken = localStorage.getItem('token');
+      return accessToken;
+    }
   }
-  if(getCookie('accessToken') && getCookie('accessToken') !== 'undefined'){
-    accessToken = getCookie('accessToken');
-    return accessToken;
-  }
+
+
 
 
 }
