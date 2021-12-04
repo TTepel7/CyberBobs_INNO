@@ -48,26 +48,26 @@
           <div class="field">
             <div class="fieldName">Желаемый срок решения проблемы? </div>
             <div class="emojiList">
-              <div class='item'>
+              <button :class='itemClass(0)' @click="currentItem = 0">
                 <img class='emoji' :src="require('./emoji1.png')"/>
                 <p class='emojiTitle'>Даже не знаю</p>
-              </div>
-              <div class='item'>
+              </button>
+              <button :class='itemClass(1)' @click="currentItem=1">
                 <img class='emoji' :src="require('./emoji2.png')" />
                 <p class='emojiTitle'>Да подождёт</p>
-              </div>
-              <div class='item'>
+              </button>
+              <button :class='itemClass(2)' @click="currentItem=2">
                 <img class='emoji' :src="require('./emoji3.png')"/>
                 <p class='emojiTitle'>Поскорее бы...</p>
-              </div>
-              <div class='item'>
+              </button>
+              <button :class='itemClass(3)' @click="currentItem=3">
                 <img class='emoji' :src="require('./emoji4.png')"/>
                 <p class='emojiTitle'>Так-то срочно</p>
-              </div>
-              <div class='item'>
+              </button>
+              <button :class='itemClass(4)' @click="currentItem=4">
                 <img class='emoji' :src="require('./emoji5.png')"/>
                 <p class='emojiTitle'>Сроки горят!</p>
-              </div>
+              </button>
             </div>
           </div>
           <div class="field">
@@ -107,14 +107,9 @@ export default {
     return {
       currentStage: 0,
       lastStage: 2,
+      currentItem: null,
 
     }
-  },
-  async fetch(){
-    this.directionList = await directions();
-    this.certList = await certs();
-    this.transportList = await transport();
-    this.projectStagesList = await project_stages();
   },
   computed:{
     question(){
@@ -130,7 +125,8 @@ export default {
       }else{
         return this.certList.data;
       }
-    }
+    },
+
   },
   methods:{
     nextStage(){
@@ -146,6 +142,12 @@ export default {
       return {
         answer:this.result[this.currentStage].id !== id,
         activeAnswer:this.result[this.currentStage].id === id,
+      }
+    },
+    itemClass(id){
+      return {
+        activeItem: this.currentItem === id,
+        item: this.currentItem !== id,
       }
     }
   }
@@ -260,10 +262,23 @@ export default {
     flex-direction: column;
     align-items: center;
     margin-right: 16px;
+    border-radius: 8px;
     &:last-child{
       margin-right: 0;
     }
 
+  }
+
+  .activeItem{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 16px;
+    border: 1px solid #009A96;
+    border-radius: 8px;
+    &:last-child{
+      margin-right: 0;
+    }
   }
 
   .emojiList{
